@@ -3,7 +3,6 @@
 
 struct rb_tree {
     struct node *head;
-    int black_nodes_in_path;
 };
 
 

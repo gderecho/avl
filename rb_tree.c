@@ -80,7 +80,6 @@ struct node *rotate(struct node *root, bool direction)
 int rb_init(struct rb_tree *tree)
 {
     tree->head=NULL;
-    tree->black_nodes_in_path = 1;
     return EXIT_SUCCESS;
 }
 
@@ -96,7 +95,6 @@ int rb_insert(int value, struct rb_tree *tree)
             return EXIT_FAILURE;
         tree->head = to_insert;
 
-        tree->black_nodes_in_path = 2; /* head and NULL */
         return EXIT_SUCCESS;
     }
     tree->head = rb_insert_at(value, tree->head);
