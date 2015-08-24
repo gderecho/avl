@@ -1,2 +1,2 @@
-# avl
-A vanilla C implementation of the classic AVL tree
+# red-black
+A vanilla C implementation of the classic red-black tree
