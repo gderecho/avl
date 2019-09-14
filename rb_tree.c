@@ -136,37 +136,39 @@ struct node *rb_insert_at(int value, struct node *current)
                     current = rotate(current,RIGHT);
                 }
             }
-        } else {
-            current->left_child = new_node(value,true);
+            return current;
         }
-    } else {
-        if(current->right_child) {
-            if(current->right_child->is_red && 
-                    current->left_child &&
-                    current->left_child->is_red) {
-                current->right_child->is_red = false;
-                current->left_child->is_red = false;
-                current->is_red = true;
-            }
-            current->right_child = rb_insert_at(value, current->right_child);
-            if(current->right_child->is_red) {
-                if(current->right_child->right_child &&
-                        current->right_child->right_child->is_red) {
-                    current->right_child->is_red = false;
-                    current->is_red = true;
-                    current = rotate(current,LEFT);
-                } else if(current->right_child->left_child &&
-                        current->right_child->left_child->is_red) {
-                    current->right_child = rotate(current->right_child,RIGHT);
-                    current->right_child->is_red = false;
-                    current->is_red = true;
-                    current = rotate(current,LEFT);
-                }
-            }
-        } else {
-            current->right_child = new_node(value,true);
-        }
+        current->left_child = new_node(value,true);
+        return current;
     }
+
+    if(current->right_child) {
+        if(current->right_child->is_red && 
+                current->left_child &&
+                current->left_child->is_red) {
+            current->right_child->is_red = false;
+            current->left_child->is_red = false;
+            current->is_red = true;
+        }
+        current->right_child = rb_insert_at(value, current->right_child);
+        if(current->right_child->is_red) {
+            if(current->right_child->right_child &&
+                    current->right_child->right_child->is_red) {
+                current->right_child->is_red = false;
+                current->is_red = true;
+                current = rotate(current,LEFT);
+            } else if(current->right_child->left_child &&
+                    current->right_child->left_child->is_red) {
+                current->right_child = rotate(current->right_child,RIGHT);
+                current->right_child->is_red = false;
+                current->is_red = true;
+                current = rotate(current,LEFT);
+            }
+        }
+        return current;
+    }
+
+    current->right_child = new_node(value,true);
 
     return current;
 }
@@ -205,72 +207,74 @@ void rb_print(struct rb_tree *tree)
 int main(int argc, char *argv[])
 {
     struct rb_tree tree;
+    int i;
     rb_init(&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_insert(11,&tree);
-    rb_insert(14,&tree);
-    rb_insert(2,&tree);
-    rb_insert(1,&tree);
-    rb_insert(7,&tree);
-    rb_insert(5,&tree);
-    rb_insert(8,&tree);
-    rb_insert(4,&tree);
-    rb_print(&tree);
+    for(i = 0; i < 100; i++) {
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+        rb_insert(11,&tree);
+        rb_insert(14,&tree);
+        rb_insert(2,&tree);
+        rb_insert(1,&tree);
+        rb_insert(7,&tree);
+        rb_insert(5,&tree);
+        rb_insert(8,&tree);
+        rb_insert(4,&tree);
+    }
     rb_free_elements(&tree);
     return 0;
 }
